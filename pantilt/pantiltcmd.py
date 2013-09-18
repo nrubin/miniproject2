@@ -62,7 +62,7 @@ if __name__ == '__main__':
     h = hellousb()  
     # h.move_servos(0.5,0.5)
     # h.move_servos(1,1)
-    r = 100
+    r = 1000
     for i in range(1,r):
         pos = float(i)/r
         h.move_servos(pos,pos)
