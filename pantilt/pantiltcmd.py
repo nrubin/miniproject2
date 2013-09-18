@@ -1,5 +1,6 @@
 
 import usb.core
+import time
 
 class hellousb:
 
@@ -26,7 +27,8 @@ class hellousb:
     def set_vals(self, val1, val2):
         try:
             self.dev.ctrl_transfer(0x40, self.SET_VALS, int(val1), int(val2))
-        except usb.core.USBError:
+        except usb.core.USBError as e:
+            print e
             print "Could not send SET_VALS vendor request."
 
     def get_vals(self):
@@ -43,3 +45,25 @@ class hellousb:
         except usb.core.USBError:
             print "Could not send PRINT_VALS vendor request."
 
+    def move_servos(self,pos1,pos2):
+        if pos1 < 0 or pos1 > 1:
+            raise ValueError,"pos1 must be between 0 and 1"
+        elif pos2 < 0 or pos2 > 1:
+            raise ValueError,"pos2 must be between 0 and 1"
+        else:
+            val1 = int(pos1 * (2**16-1))
+            val2 = int(pos2 * (2**16-1))
+            print "val1 = %d and val2=%d" % (val1,val2)
+            print "in binary, val1 = %s and val2 = %s" % (bin(val1)[1:],bin(val2)[1:])
+            self.set_vals(val1,val2)
+            time.sleep(0.05)
+
+if __name__ == '__main__':
+    h = hellousb()  
+    # h.move_servos(0.5,0.5)
+    # h.move_servos(1,1)
+    r = 100
+    for i in range(1,r):
+        pos = float(i)/r
+        h.move_servos(pos,pos)
+        print i

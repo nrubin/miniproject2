@@ -19,8 +19,9 @@ env.Program('pantilt', ['pantilt.c',
                          'usb.c', 
                          '../lib/pin.c', 
                          '../lib/uart.c',
+                         '../lib/ui.c',
                          '../lib/timer.c',
-                         '../lib/oc.c',
-                         '../lib/ui.c'])
+                         '../lib/oc.c'])
+
 env.Hex('pantilt')
 env.List('pantilt')

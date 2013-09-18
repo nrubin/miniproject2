@@ -107,14 +107,19 @@ int16_t main(void) {
         ServiceUSB();                       // ...service USB requests
     }
     while (1) {
-        serviceUSB();                       // service any pending USB requests
+        ServiceUSB();
+        // printf("val1 = %u, val2 = %u\n", val1, val2);
+        pin_write(&D[0],val1);
+        pin_write(&D[2],val2);                     
         if (timer_flag(&timer2)) {
             timer_lower(&timer2);
             led_toggle(&led1);
+            printf("val1 = %u, val2 = %u\n", val1, val2);
+
             // pin_write(&D[0],pos);
-            // pin_write(&D[2],pos);
-            // printf("the current position is %d\n",pos );
-            // pos += 10000;
+    //         // pin_write(&D[2],pos);
+    //         // printf("the current position is %d\n",pos );
+    //         // pos += 10000;
         }
     }
 }

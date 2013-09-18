@@ -5,6 +5,7 @@
 #include "pin.h"
 #include "uart.h"
 #include <stdio.h>
+#include "ui.h"
 
 #define HELLO       0   // Vendor request that prints "Hello World!"
 #define SET_VALS    1   // Vendor request that receives 2 unsigned integer values
@@ -75,7 +76,7 @@ int16_t main(void) {
 
     val1 = 0;
     val2 = 0;
-
+    printf("Good Morning\n");
     InitUSB();                              // initialize the USB registers and serial interface engine
     while (USB_USWSTAT!=CONFIG_STATE) {     // while the peripheral is not configured...
         ServiceUSB();                       // ...service USB requests

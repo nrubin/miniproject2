@@ -18,6 +18,9 @@ env.Program('hellousb', ['hellousb.c',
                          'descriptors.c', 
                          'usb.c', 
                          '../lib/pin.c', 
-                         '../lib/uart.c'])
+                         '../lib/uart.c',
+                         '../lib/ui.c',
+                         '../lib/timer.c',
+                         '../lib/oc.c'])
 env.Hex('hellousb')
 env.List('hellousb')
