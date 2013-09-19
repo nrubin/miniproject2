@@ -2,7 +2,7 @@
 import usb.core
 import time
 
-class hellousb:
+class BraduinoUSBCommunicator:
 
     def __init__(self):
         print "Your UART cable better be plugged into the USB 2.0 port, or else kittens will cry"
@@ -30,6 +30,7 @@ class hellousb:
         except usb.core.USBError as e:
             print e
             print "Could not send SET_VALS vendor request."
+            raise e
 
     def get_vals(self):
         try:
@@ -59,7 +60,7 @@ class hellousb:
             time.sleep(0.05)
 
 if __name__ == '__main__':
-    h = hellousb()  
+    h = BraduinoUSBCommunicator()  
     # h.move_servos(0.5,0.5)
     # h.move_servos(1,1)
     r = 1000
