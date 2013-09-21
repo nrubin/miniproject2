@@ -93,8 +93,8 @@ int16_t main(void) {
     val2 = 0;
 
     interval = 0.02;
-    min_width = 8E-4;
-    max_width = 2.2E-3;
+    min_width = 5.5E-4;
+    max_width = 2.3E-3;
     pos = 0; //16 bit int with binary point in front of the MSB
 
     oc_servo(&oc1,&D[0],&timer1, interval,min_width, max_width, pos);
@@ -108,18 +108,12 @@ int16_t main(void) {
     }
     while (1) {
         ServiceUSB();
-        // printf("val1 = %u, val2 = %u\n", val1, val2);
         pin_write(&D[0],val1);
         pin_write(&D[2],val2);                     
         if (timer_flag(&timer2)) {
             timer_lower(&timer2);
             led_toggle(&led1);
             printf("val1 = %u, val2 = %u\n", val1, val2);
-
-            // pin_write(&D[0],pos);
-    //         // pin_write(&D[2],pos);
-    //         // printf("the current position is %d\n",pos );
-    //         // pos += 10000;
         }
     }
 }

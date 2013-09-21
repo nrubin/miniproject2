@@ -10220,14 +10220,14 @@ Disassembly of section .text:
     4852:	e1 65 88    	mov.w     w1, 0xcbc
 
 00004854 <.LSM44>:
-    4854:	70 71 2b    	mov.w     #0xb717, w0
-    4856:	11 a5 23    	mov.w     #0x3a51, w1
+    4854:	00 de 22    	mov.w     #0x2de0, w0
+    4856:	01 a1 23    	mov.w     #0x3a10, w1
     4858:	f0 65 88    	mov.w     w0, 0xcbe
     485a:	01 66 88    	mov.w     w1, 0xcc0
 
 0000485c <.LSM45>:
-    485c:	00 de 22    	mov.w     #0x2de0, w0
-    485e:	01 b1 23    	mov.w     #0x3b10, w1
+    485c:	90 b9 2b    	mov.w     #0xbb99, w0
+    485e:	61 b1 23    	mov.w     #0x3b16, w1
     4860:	10 66 88    	mov.w     w0, 0xcc2
     4862:	21 66 88    	mov.w     w1, 0xcc4
 

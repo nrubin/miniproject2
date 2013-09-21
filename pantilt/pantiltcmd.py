@@ -63,8 +63,13 @@ if __name__ == '__main__':
     h = BraduinoUSBCommunicator()  
     # h.move_servos(0.5,0.5)
     # h.move_servos(1,1)
-    r = 1000
-    for i in range(1,r):
-        pos = float(i)/r
-        h.move_servos(pos,pos)
-        print i
+    r = 20
+    for i in range(1,r,2):
+        for j in range(1,r):
+            pos1 = float(i)/r
+            pos2 = float(j)/r
+            h.move_servos(pos1,pos2)
+        for k in range(r,1,-1):
+            pos1 = float(i+1)/r
+            pos2 = float(k)/r
+            h.move_servos(pos1,pos2)
