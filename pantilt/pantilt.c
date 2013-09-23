@@ -20,15 +20,6 @@ float min_width;
 float max_width;
 uint16_t pos;
 
-
-
-//void ClassRequests(void) {
-//    switch (USB_setup.bRequest) {
-//        default:
-//            USB_error_flags |= 0x01;                    // set Request Error Flag
-//    }
-//}
-
 void VendorRequests(void) {
     WORD temp;
 
@@ -108,9 +99,11 @@ int16_t main(void) {
     }
     while (1) {
         ServiceUSB();
+        //write the values to the servos (move the servos to the requested position)
         pin_write(&D[0],val1);
         pin_write(&D[2],val2);                     
         if (timer_flag(&timer2)) {
+            //show a heartbeat and a status message
             timer_lower(&timer2);
             led_toggle(&led1);
             printf("val1 = %u, val2 = %u\n", val1, val2);

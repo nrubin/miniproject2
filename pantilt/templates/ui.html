@@ -2,7 +2,9 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
+
 function draw_circle(ctx,radius,x,y,filled){
+	//draws a circle
 	ctx.beginPath();
 	var startAngle     = 0;                     // Starting point on circle
     var endAngle       = 2*Math.PI; // End point on circle
@@ -16,11 +18,10 @@ function draw_circle(ctx,radius,x,y,filled){
     };
 }
 
-function distance(x1,y1,x2,y2){
-	return Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2))
-}
+
 
 function draw_coords(ctx){
+	//draws the crosshairs
 	var canvas = document.getElementById('canvas');
 	var radius = canvas.width/2;
 	ctx.strokeStyle = "black"
@@ -43,6 +44,7 @@ function draw_coords(ctx){
 }
 
 function draw_line(ctx,startx,starty,endx,endy){
+	//draws a line from (startx,starty) to (endx,endy)
 	ctx.beginPath();
 	ctx.moveTo(startx,starty);
 	ctx.lineTo(endx,endy);
@@ -50,9 +52,9 @@ function draw_line(ctx,startx,starty,endx,endy){
 }
 
 function draw_new_target(ctx,radius,x,y){
+	// draws the crosshairs
 	ctx.clearRect(0,0,radius*2,radius*2);
 	draw_coords(ctx);
-	//draw four lines: two vertiorcals above and below, two horz left and right
 	ctx.strokeStyle = "Grey";
 	draw_line(ctx,x+5,y,x+10,y)
 	draw_line(ctx,x,y+5,x,y+10)
@@ -65,12 +67,14 @@ function randomColor(){
 	return '#'+Math.floor(Math.random()*16777215).toString(16); // from http://www.paulirish.com/2009/random-hex-color-code-snippets/
 }
 
+function distance(x1,y1,x2,y2){
+	return Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2))
+}
 
 $(function(){
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
 	var radius = canvas.width/2;
-	var status_msg = document.getElementById('braduino-status')
 	console.log(radius);
 	ctx.beginPath();
 	var x = radius;
@@ -79,36 +83,31 @@ $(function(){
 
 	$('#canvas').click(function(ev){
 		//clear any previous targets
-		//get click coords
+		//get click coords (adjusted since they're not really on the mouse pointer ever, silly Ubuntu)
 		var x = ev.clientX-9;
 		var y = ev.clientY-7;
 		var centerx = radius;
 		var centery = radius;
-		var dis = distance(x,y,centerx,centery);
+		var dis = distance(x,y,centerx,centery); //get the distance from the center of the circle
 		if (dis >= radius) {
-			console.log("circle out of range")
+			console.log("circle out of range") //I don't want points outside of the circle
 		} else{
+			// let the web server know where to move the servos
 			$.post("/move",{
 			"x" : x, "y" : y
 			})
-			draw_new_target(ctx,radius,x,y);
+			draw_new_target(ctx,radius,x,y); // draw the crosshairs
 		}
 		
 	});
     
 });
 </script>
-<style type="text/css">
-  canvas { /*border: 1px solid black;*/ }
-  #title { margin-left: {{ radius/2 - 50 }} }
-  #btn_scan {margin-left: {{ radius/2 - 40 }} }
-</style>
 </head>
 <body>
 <div id="content">
 <canvas id="canvas" width="{{ radius }}" height="{{ radius }}">
 </canvas>
-<!-- <h1 id="title"> Aim! </h1> -->
 </div>
 </body>
 </html>

@@ -47,6 +47,7 @@ class BraduinoUSBCommunicator:
             print "Could not send PRINT_VALS vendor request."
 
     def move_servos(self,pos1,pos2):
+        #do some data validation, then send the servo positions to the PIC
         if pos1 < 0 or pos1 > 1:
             raise ValueError,"pos1 must be between 0 and 1"
         elif pos2 < 0 or pos2 > 1:
@@ -57,12 +58,11 @@ class BraduinoUSBCommunicator:
             print "val1 = %d and val2=%d" % (val1,val2)
             print "in binary, val1 = %s and val2 = %s" % (bin(val1)[1:],bin(val2)[1:])
             self.set_vals(val1,val2)
-            time.sleep(0.05)
+            time.sleep(0.05) #don't overwhelm the PIC/servos
 
 if __name__ == '__main__':
     h = BraduinoUSBCommunicator()  
-    # h.move_servos(0.5,0.5)
-    # h.move_servos(1,1)
+    #scanning code
     r = 20
     for i in range(1,r,2):
         for j in range(1,r):
